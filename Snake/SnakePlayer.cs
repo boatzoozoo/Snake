@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Media;
 namespace Snake
 {
     /// <summary>
@@ -24,13 +24,13 @@ namespace Snake
     /// Class containing the controller logic for the player
     /// </summary>
     class SnakePlayer
-    {
+    {   SoundPlayer b = new SoundPlayer("../.../BB.wav");
         private List<BodyPart> m_SnakeParts = new List<BodyPart>(); // Collection of current snake body parts
         private const int m_CircleRadius = 20; // Determines body part size
         private Direction m_MoveDirection = Direction.none; // Direction of the head
         private int m_PendingSegments; // Number of body parts in queue to be added to the snake
         private SnakeForm GameForm = null; // Stores the GUI form
-
+       
         /// <summary>
         /// Object constructor
         /// </summary>
@@ -179,8 +179,9 @@ namespace Snake
         /// <param name="WhichWall">The direction of the wall that the player hit</param>
         public void OnHitWall(Direction WhichWall)
         {
+            b.Play();
             GameForm.ToggleTimer(); // No timer visible on game-over screen
-            MessageBox.Show("Hit Wall- GAME OVER"); // Display game-over message
+            MessageBox.Show("Hit Wall- You lost"); // Display game-over message
             GameForm.ResetGame();
         }
 
